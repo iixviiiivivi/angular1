@@ -1,0 +1,66 @@
+<h3>Form</h3>
+
+<form #userform="ngForm" (ngSubmit)="submit()">
+    <div class="control">
+        <label>Username</label>
+        <input type="text" name="username" #username="ngModel" [(ngModel)]="usermodel.username"
+            required pattern="^\w{4,}$" [class.ok]="(username.touched || username.dirty) && username.valid" [class.notok]="(username.touched || username.dirty) && username.invalid">
+
+        <span *ngIf="(username.touched || username.dirty) && username.invalid">
+            <small class="alert" *ngIf="username.errors.required">必需填寫</small>
+            <small class="alert" *ngIf="username.errors.pattern">至少4個英數字元加底線</small>
+        </span>
+    </div>
+
+    <div class="control">
+        <label>Password</label>
+        <input type="text" name="password" #password="ngModel" [(ngModel)]="usermodel.password"
+            required pattern="^\w{6,}$" [class.ok]="(password.touched || password.dirty) && password.valid" [class.notok]="(password.touched || password.dirty) && password.invalid">
+        
+        <span *ngIf="(password.touched || password.dirty) && password.invalid">
+            <small class="alert" *ngIf="password.errors.required">必須填寫</small>
+            <small class=" alert" *ngIf="password.errors.pattern">至少6個中英字元加底線</small>
+        </span>
+    </div>
+
+    <div class="control">
+        <label>Phone</label>
+        <input type="text" name="phone" #phone="ngModel" [(ngModel)]="usermodel.phone"
+            required pattern="^09\d{2}(-?\d{3}){2}$" [class.ok]="(phone.touched || phone.dirty) && phone.valid" [class.notok]="(phone.touched || phone.dirty) && phone.invalid">
+        
+        <span *ngIf="(phone.touched || phone.dirty) && phone.invalid">
+            <small class="alert" *ngIf="phone.errors.required">必須填寫</small>
+            <small class="alert" *ngIf="phone.errors.pattern">需符合手機格式09xx-ooo-xxx或09xxoooxxx</small>
+        </span>
+    </div>
+
+    <div ngModelGroup="address">
+        <div class="control">
+            <label>City</label>
+            <input type="text" name="city" #city="ngModel" [(ngModel)]="usermodel.address.city"
+                required pattern="^\w{3,}$" [class.ok]="(city.touched || city.dirty) && city.valid" [class.notok]="(city.touched || city.dirty) && city.invalid">
+            
+            <span *ngIf="(city.touched || city.dirty) && city.invalid">
+                <small class="alert" *ngIf="city.errors.required">必須填寫</small>
+                <small class="alert" *ngIf="city.errors.pattern">至少三個英數字元加底線</small>
+            </span>
+        </div>
+
+        <div class="control">
+            <label>Street</label>
+            <input type="text" name="street" #street="ngModel" [(ngModel)]="usermodel.address.street"
+                required pattern="^\w{6,}$" [class.ok]="(street.touched || street.touched) && street.valid" [class.notok]="(street.touched || street.dirty) && street.invalid">
+            
+            <span *ngIf="(street.touched || street.dirty) && street.invalid">
+                <small class="alert" *ngIf="street.errors.required">必須填寫</small>
+                <small class="alert" *ngIf="street.errors.pattern">至少6個英數字元加底線</small>
+            </span>
+        </div>
+    </div>
+
+    <button class="control" type="submit">Submit</button>
+</form>
+<br>
+userform {{userform.value | json}}
+<hr>
+usermodel {{usermodel | json}}
